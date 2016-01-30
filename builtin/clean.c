@@ -581,9 +581,7 @@ static int *list_and_choose(struct menu_opts *opts, struct menu_stuff *stuff)
 			       clean_get_color(CLEAN_COLOR_RESET));
 		}
 
-		if (strbuf_getline_lf(&choice, stdin) != EOF) {
-			strbuf_trim(&choice);
-		} else {
+		if (strbuf_getline(&choice, stdin) == EOF) {
 			eof = 1;
 			break;
 		}
@@ -663,9 +661,7 @@ static int filter_by_patterns_cmd(void)
 		clean_print_color(CLEAN_COLOR_PROMPT);
 		printf(_("Input ignore patterns>> "));
 		clean_print_color(CLEAN_COLOR_RESET);
-		if (strbuf_getline_lf(&confirm, stdin) != EOF)
-			strbuf_trim(&confirm);
-		else
+		if (strbuf_getline(&confirm, stdin) == EOF)
 			putchar('\n');
 
 		/* quit filter_by_pattern mode if press ENTER or Ctrl-D */
@@ -761,9 +757,7 @@ static int ask_each_cmd(void)
 			qname = quote_path_relative(item->string, NULL, &buf);
 			/* TRANSLATORS: Make sure to keep [y/N] as is */
 			printf(_("Remove %s [y/N]? "), qname);
-			if (strbuf_getline_lf(&confirm, stdin) != EOF) {
-				strbuf_trim(&confirm);
-			} else {
+			if (strbuf_getline(&confirm, stdin) == EOF) {
 				putchar('\n');
 				eof = 1;
 			}
