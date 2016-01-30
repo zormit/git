@@ -1182,7 +1182,7 @@ static int read_rebase_todolist(const char *fname, struct string_list *lines)
 		die_errno("Could not open file %s for reading",
 			  git_path("%s", fname));
 	}
-	while (!strbuf_getline_lf(&line, f)) {
+	while (!strbuf_getline(&line, f)) {
 		if (line.len && line.buf[0] == comment_line_char)
 			continue;
 		strbuf_trim(&line);
