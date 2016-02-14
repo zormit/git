@@ -76,6 +76,8 @@ static char *sq_dequote_step(char *arg, char **next)
 	char *src = arg;
 	char c;
 
+	if (*src == ' ')
+		src++;
 	if (*src != '\'')
 		return NULL;
 	for (;;) {
