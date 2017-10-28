@@ -14,6 +14,7 @@
 #include "hash.h"
 #include "path.h"
 #include "sha1-array.h"
+#include "repository.h"
 
 #ifndef platform_SHA_CTX
 /*
@@ -131,6 +132,8 @@ struct git_hash_algo {
 	const struct object_id *empty_blob;
 };
 extern const struct git_hash_algo hash_algos[GIT_HASH_NALGOS];
+
+#define current_hash the_repository->hash_algo
 
 #if defined(DT_UNKNOWN) && !defined(NO_D_TYPE_IN_DIRENT)
 #define DTYPE(de)	((de)->d_type)
@@ -920,6 +923,7 @@ struct repository_format {
 	int version;
 	int precious_objects;
 	int is_bare;
+	int hash_algo;
 	char *work_tree;
 	struct string_list unknown_extensions;
 };
